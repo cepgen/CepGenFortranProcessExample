@@ -12,4 +12,8 @@ The default search paths for this installation are:
 
 These two search paths can be overriden by setting the `$(CEPGEN_LIBS_DIR)` and `$(CEPGEN_INCLUDE_DIR)` environment variables prior to running `make`.
 
-For instance, if a local source-build of CepGen is used, these two can take the value `CEPGEN_LIB_DIR=<path/to/cepgen/sources>/build` and `CEPGEN_INCLUDE_DIR=<path/to/cepgen/sources>`.
+For instance, if a local source-build of CepGen is used, these two can take the value:
+```bash
+export CEPGEN_LIBS_DIR=<path/to/cepgen/sources>/build
+export CEPGEN_INCLUDE_DIR=<path/to/cepgen/sources>
+```
