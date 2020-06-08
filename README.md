@@ -20,6 +20,7 @@ export CEPGEN_INCLUDE_DIR=<path/to/cepgen/sources>
 
 In this example, the `dummy_process` Fortran double-precision typed function is built from the `*.f` source files (here, only [dummy_process.f](dummy_process.f), and registered using the [ProcessesWrapper.cpp](ProcessesWrapper.cpp) file.
 This latter acts as a link between the CepGen runtime environment and this new process definition.
-Two functions are respectively declaring the main matrix element, and registering it into the runtime database.
-* `DECLARE_FORTRAN_FUNCTION( dummy_process )` takes the F77 name of the function as an argument.
+
+In this file, two functions are respectively declaring the main matrix element, and registering it into the runtime database:
+* `DECLARE_FORTRAN_FUNCTION( dummy_process )` takes the F77 name of the function as an argument ;
 * `REGISTER_FORTRAN_PROCESS( dummy, "A dummy Fortran process", dummy_process )` links this function to a new CepGen process named `dummy`, described with the second argument.
