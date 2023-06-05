@@ -4,7 +4,7 @@
       !--------------------------------------------------------------------------
       ! CepGen overhead
       !--------------------------------------------------------------------------
-      include 'CepGen/Processes/Fortran/KTBlocks.inc' ! mandatory, include the kinematics common blocks
+      include 'CepGen/Process/Fortran/KTBlocks.inc' ! mandatory, include the kinematics common blocks
       call CepGen_print      ! optional, display some run parameters information
       !--------------------------------------------------------------------------
       ! end of overhead, beginning of process definition
