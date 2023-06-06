@@ -7,8 +7,8 @@ This `.so` or `.dll` library can then be imported through the `-a` argument of C
 
 A working version of CepGen is obviously required on the building system.
 The default search paths for this installation are:
-* `/usr/lib64` for library objects (only the `CepGenCore` module is required), and
-* `/usr/include` for development headers.
+* `/usr/local/lib64` for library objects (only the `CepGen` shared library is required), and
+* `/usr/local/include` for development headers.
 
 These two search paths can be overriden by setting the `$(CEPGEN_LIBS_DIR)` and `$(CEPGEN_INCLUDE_DIR)` environment variables prior to running `make`.
 
@@ -24,3 +24,9 @@ This latter acts as a link between the CepGen runtime environment and this new p
 In this file, two functions are respectively declaring the main matrix element, and registering it into the runtime database:
 * `DECLARE_FORTRAN_FUNCTION( dummy_process )` takes the F77 name of the function as an argument ;
 * `REGISTER_FORTRAN_PROCESS( dummy, "A dummy Fortran process", dummy_process )` links this function to a new CepGen process named `dummy`, described with the second argument.
+
+Once compiled and linked into a shared library, it can be loaded into the CepGen runtime environment and added into the processes collection.
+For the latter, the main CepGen executable can be steered when providing an extra `-a` flag linking to this library, i.e.
+```bash
+$CEPGEN_PATH/bin/cepgen -a $PATH_TO/libCepGenUserProcess.so -i $PATH_TO/dummy_cfg.py
+```
