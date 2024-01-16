@@ -6,6 +6,6 @@ process = kt.process.clone('dummy',
     ),
     inKinematics = cepgen.Parameters(
         sqrtS = 13.e3,
-        partonFluxes = (kt.ProtonFlux.BudnevElastic, kt.ProtonFlux.BudnevElastic),
+        partonFluxes = (kt.ProtonFlux.PhotonElasticBudnev, kt.ProtonFlux.PhotonElasticBudnev),
     )
 )
