@@ -1,0 +1,42 @@
+name: Test the framework with a CepGen installation
+
+on:
+  push:
+  workflow_dispatch:
+env:
+  CEPGEN_PATH: /Package
+  PROCESS_NAME: MyProcessName
+
+jobs:
+  build:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-latest
+    container:
+      image: 'laufor/ci-images:cepgen-fedora39'
+      options: -v ${{ github.workspace }}:/Example
+    steps:
+    - uses: actions/checkout@v4
+    - name: 'Download CepGen artifact'
+      uses: dawidd6/action-download-artifact@v3
+      with:
+        workflow: build.yml
+        workflow_conclusion: success
+        name: build-env
+        repo: cepgen/cepgen
+    - name: 'CepGen uncompress'
+      run: |
+        tar xvfz environment.tar.gz -C /
+    - name: 'Configure the build'
+      run: |
+        git config --global --add safe.directory '*'
+        cmake -GNinja -B /Example/build -DPROCESS_NAME=${{ env.PROCESS_NAME }}
+    - name: Build
+      run: cmake --build /Example/build
+    - name: Test
+      working-directory: /Example/build
+      run: |
+        ${{ env.CEPGEN_PATH }}/bin/cepgen -a lib${{ env.PROCESS_NAME }}.so -i cards/dummy_collfactor_cfg.py
+        ${{ env.CEPGEN_PATH }}/bin/cepgen -a lib${{ env.PROCESS_NAME }}.so -i cards/dummy_ktfactor_cfg.py
+
