@@ -4,7 +4,7 @@ on:
   push:
   workflow_dispatch:
 env:
-  CEPGEN_PATH: /Package
+  CEPGEN_PATH: /Package/install
   PROCESS_NAME: MyProcessName
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ubuntu-latest
     container:
-      image: 'laufor/ci-images:cepgen-fedora39'
+      image: 'laufor/ci-images:cepgen-fedora40'
       options: -v ${{ github.workspace }}:/Example
     steps:
     - uses: actions/checkout@v4
@@ -23,11 +23,11 @@ jobs:
       with:
         workflow: build.yml
         workflow_conclusion: success
-        name: build-env
+        name: install-env
         repo: cepgen/cepgen
     - name: 'CepGen uncompress'
       run: |
-        tar xvfz environment.tar.gz -C /
+        tar xvfz install-environment.tar.gz -C /
     - name: 'Configure the build'
       run: |
         git config --global --add safe.directory '*'
