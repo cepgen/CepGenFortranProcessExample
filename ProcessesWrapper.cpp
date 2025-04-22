@@ -3,6 +3,7 @@
 #include "CepGen/Event/Event.h"
 #include "CepGen/Modules/ProcessFactory.h"
 #include "CepGen/Process/FortranFactorisedProcess.h"
+#include "CepGen/Utils/RandomGenerator.h"
 //=============================================================================
 
 //=============================================================================
